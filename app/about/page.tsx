@@ -31,7 +31,7 @@ export default function About() {
               high-quality, context-aware content tailored to your needs.
             </p>
             <p className="text-lg text-gray-600 dark:text-gray-300">
-              Whether you're looking to create engaging social media posts,
+              Whether you&apos;re looking to create engaging social media posts,
               informative blog articles, or catchy video scripts, our tool can
               help you generate content quickly and efficiently, saving you time
               and effort in your content creation process.

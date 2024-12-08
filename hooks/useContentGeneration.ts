@@ -1,42 +1,45 @@
-import { useState } from 'react'
+import { useState } from "react";
 
 interface ContentGenerationParams {
-  query: string
-  tone: string
-  style: string
+  query: string;
+  tone: string;
+  style: string;
 }
 
 export function useContentGeneration() {
-  const [content, setContent] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
+  const [content, setContent] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const generateContent = async ({ query, tone, style }: ContentGenerationParams) => {
-    setLoading(true)
-    setError('')
+  const generateContent = async ({
+    query,
+    tone,
+    style,
+  }: ContentGenerationParams) => {
+    setLoading(true);
+    setError("");
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_RAG_API_URL}/generate`, {
-        method: 'POST',
+      const response = await fetch("/api/generate", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ query, tone, style }),
-      })
+      });
 
       if (!response.ok) {
-        throw new Error('Failed to generate content')
+        throw new Error("Failed to generate content");
       }
 
-      const data = await response.json()
-      setContent(data.content)
+      const data = await response.json();
+      setContent(data.content);
     } catch (err) {
-      setError('An error occurred while generating content. Please try again.')
+      setError("An error occurred while generating content. Please try again.");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
-  return { content, loading, error, generateContent }
+  return { content, loading, error, generateContent };
 }
-

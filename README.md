@@ -32,9 +32,11 @@ RAG News Generator is an AI-powered content creation tool that uses Retrieval-Au
    \`\`\`
 
 3. Set up environment variables:
-   Create a \`.env.local\` file in the root directory and add the following:
+   Create a `.env.local` file in the root directory and add the following:
    \`\`\`
    NEXT_PUBLIC_RAG_API_URL=your_api_url_here
+   NEWS_API_KEY=your_news_api_key_here
+   HUGGING_FACE_API_KEY=your_hugging_face_api_key_here
    \`\`\`
 
 4. Run the development server:
@@ -56,7 +58,29 @@ RAG News Generator is an AI-powered content creation tool that uses Retrieval-Au
 
 ## Environment Variables
 
-- \`NEXT_PUBLIC_RAG_API_URL\`: The URL of your RAG API endpoint.
+- `NEXT_PUBLIC_RAG_API_URL`: The URL of your RAG API endpoint.
+- `NEWS_API_KEY`: Your NewsAPI key (sign up at https://newsapi.org/)
+- `HUGGING_FACE_API_KEY`: Your Hugging Face API key (sign up at https://huggingface.co/)
+
+## How It Works
+
+1. The user enters a query, selects a tone, and chooses a content style.
+2. The application fetches relevant news articles using the NewsAPI.
+3. The retrieved articles are summarized using the T5 model via the Hugging Face API.
+4. The summary is then rewritten in the specified tone and style using the Flan-T5 model.
+5. The final generated content is presented to the user.
+
+## Dependencies
+
+This project uses the following main dependencies:
+
+- Next.js
+- React
+- Axios
+- shadcn/ui components
+- Tailwind CSS
+
+For a full list of dependencies, please refer to the `package.json` file.
 
 ## Project Structure
 
@@ -91,9 +115,9 @@ rag-news-generator/
 We welcome contributions to the RAG News Generator project! Please follow these steps to contribute:
 
 1. Fork the repository
-2. Create a new branch: \`git checkout -b feature/your-feature-name\`
-3. Make your changes and commit them: \`git commit -m 'Add some feature'\`
-4. Push to the branch: \`git push origin feature/your-feature-name\`
+2. Create a new branch: `git checkout -b feature/your-feature-name`
+3. Make your changes and commit them: `git commit -m 'Add some feature'`
+4. Push to the branch: `git push origin feature/your-feature-name`
 5. Submit a pull request
 
 Please make sure to update tests as appropriate and adhere to the existing coding style.
@@ -112,4 +136,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Support
 
 If you encounter any issues or have questions, please file an issue on the GitHub repository or contact our support team at support@ragnewsgenerator.com.
-\`\`\`

@@ -21,28 +21,32 @@ RAG News Generator is an AI-powered content creation tool that uses Retrieval-Au
 ### Installation
 
 1. Clone the repository:
-   \`\`\`
-   git clone https://github.com/your-username/rag-news-generator.git
-   cd rag-news-generator
-   \`\`\`
+
+   ```
+   git clone https://github.com/zahooronly/aigineers-rag-news-generator.git
+   cd aigineers-rag-news-generator
+   ```
 
 2. Install dependencies:
-   \`\`\`
+
+   ```
    npm install
-   \`\`\`
+   ```
 
 3. Set up environment variables:
    Create a `.env.local` file in the root directory and add the following:
-   \`\`\`
+
+   ```
    NEXT_PUBLIC_RAG_API_URL=your_api_url_here
    NEWS_API_KEY=your_news_api_key_here
    HUGGING_FACE_API_KEY=your_hugging_face_api_key_here
-   \`\`\`
+   ```
 
 4. Run the development server:
-   \`\`\`
+
+   ```
    npm run dev
-   \`\`\`
+   ```
 
 5. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
 
@@ -84,7 +88,8 @@ For a full list of dependencies, please refer to the `package.json` file.
 
 ## Project Structure
 
-\`\`\`
+```
+
 rag-news-generator/
 ├── app/
 │ ├── components/
@@ -108,7 +113,7 @@ rag-news-generator/
 ├── package.json
 ├── README.md
 └── tsconfig.json
-\`\`\`
+```
 
 ## Contributing
 
@@ -132,7 +137,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Tailwind CSS for styling
 - shadcn/ui for UI components
 - Lucide React for icons
-
-## Support
-
-If you encounter any issues or have questions, please file an issue on the GitHub repository or contact our support team at support@ragnewsgenerator.com.

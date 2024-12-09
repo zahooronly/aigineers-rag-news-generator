@@ -75,10 +75,10 @@ export default function Help() {
             If you encounter any issues or have questions not covered here,
             please contact our support team at{" "}
             <a
-              href="mailto:support@ragnewsgenerator.com"
+              href="mailto:i.am.zahoor.a@outlook.com"
               className="text-blue-600 dark:text-blue-400 hover:underline"
             >
-              support@ragnewsgenerator.com
+              i.am.zahoor.a@outlook.com
             </a>
           </p>
         </div>

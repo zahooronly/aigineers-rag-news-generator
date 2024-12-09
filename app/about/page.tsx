@@ -16,7 +16,7 @@ export default function About() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div>
             <Image
-              src="https://engineering.fb.com/2016/12/01/ml-applications/artificial-intelligence-revealed/"
+              src="/AI.png"
               alt="RAG News Generator Illustration"
               width={500}
               height={500}

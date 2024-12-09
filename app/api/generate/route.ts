@@ -1,82 +1,48 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextResponse } from "next/server";
 import axios from "axios";
+import {
+  validateContentGenerationInput,
+  ValidationError,
+} from "@/utils/validation";
 
-const NEWS_API_KEY = process.env.NEWS_API_KEY;
-const HUGGING_FACE_API_KEY = process.env.HUGGING_FACE_API_KEY;
-
-async function fetchNews(query: string, pageSize: number = 3) {
-  const url = "https://newsapi.org/v2/everything";
-  const params = {
-    q: query,
-    apiKey: NEWS_API_KEY,
-    language: "en",
-    pageSize,
-  };
-
-  try {
-    const response = await axios.get(url, { params });
-    if (response.status === 200) {
-      return response.data.articles.map((article: any) => ({
-        title: article.title,
-        description: article.description || "",
-        url: article.url,
-      }));
-    }
-  } catch (error) {
-    console.error("Error fetching news:", error);
-  }
-
-  return [];
-}
-
-async function summarizeArticles(articles: any[]) {
-  if (articles.length === 0) {
-    return "No articles found to summarize.";
-  }
-
-  const combinedText = articles
-    .map((article) => `${article.title}: ${article.description}`)
-    .join("\n")
-    .slice(0, 1000);
-
-  const response = await axios.post(
-    "https://api-inference.huggingface.co/models/t5-small",
-    { inputs: combinedText },
-    {
-      headers: { Authorization: `Bearer ${HUGGING_FACE_API_KEY}` },
-    }
-  );
-
-  return response.data[0].summary_text;
-}
-
-async function rewriteSummary(summary: string, tone: string, style: string) {
-  const prompt = `Rewrite the following in a ${tone} tone for a ${style} audience:\n${summary}`;
-
-  const response = await axios.post(
-    "https://api-inference.huggingface.co/models/google/flan-t5-base",
-    { inputs: prompt },
-    {
-      headers: { Authorization: `Bearer ${HUGGING_FACE_API_KEY}` },
-    }
-  );
-
-  return response.data[0].generated_text;
-}
+const API_URL =
+  "https://search-topic-hackathone-production.up.railway.app/generate-content/";
 
 export async function POST(request: Request) {
-  const { query, tone, style } = await request.json();
+  try {
+    const body = await request.json();
+    const validatedInput = validateContentGenerationInput(body);
 
-  const articles = await fetchNews(query);
-  const summary = await summarizeArticles(articles);
+    const response = await axios.post(API_URL, {
+      topic: validatedInput.topic,
+      Platform: validatedInput.platform,
+      image: validatedInput.image ? 1 : 0,
+      video: validatedInput.video ? 1 : 0,
+      meme: validatedInput.meme ? 1 : 0,
+    });
 
-  let finalOutput = "";
-  if (summary !== "No articles found to summarize.") {
-    finalOutput = await rewriteSummary(summary, tone, style);
-  } else {
-    finalOutput = summary;
+    return NextResponse.json(response.data);
+  } catch (error) {
+    if (error instanceof ValidationError) {
+      return NextResponse.json(
+        { error: "Validation failed", details: error.errors },
+        { status: 400 }
+      );
+    }
+
+    if (axios.isAxiosError(error)) {
+      console.error("API request failed:", error.message);
+      const status = error.response?.status || 500;
+      const message =
+        error.response?.data?.error ||
+        "An error occurred while generating content";
+      return NextResponse.json({ error: message }, { status });
+    }
+
+    console.error("Unexpected error:", error);
+    return NextResponse.json(
+      { error: "An unexpected error occurred" },
+      { status: 500 }
+    );
   }
-
-  return NextResponse.json({ content: finalOutput });
 }

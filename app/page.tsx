@@ -1,5 +1,6 @@
-import OutputSection from "@/components/OutputSection";
-import QueryForm from "@/components/QueryForm";
+import ContentGenerator from "@/components/ContentGenerator";
+// import OutputSection from "@/components/OutputSection";
+// import QueryForm from "@/components/QueryForm";
 // import Image from 'next/image'
 
 export default function Home() {
@@ -20,13 +21,14 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 shadow-2xl rounded-3xl overflow-hidden">
+        {/* <div className="bg-white dark:bg-gray-800 shadow-2xl rounded-3xl overflow-hidden">
           <div className="p-8 sm:p-12">
             <QueryForm />
           </div>
         </div>
 
-        <OutputSection />
+        <OutputSection /> */}
+        <ContentGenerator />
 
         <div className="mt-24 text-center">
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl dark:text-white">

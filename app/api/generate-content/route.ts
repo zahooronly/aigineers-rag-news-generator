@@ -5,7 +5,7 @@ import { JSDOM } from "jsdom";
 import { Readability } from "@mozilla/readability";
 
 const NEWS_API_KEY = "b99be3237625496792e1f951bd03b6aa";
-const GROQ_API_KEY = "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";
+const GROQ_API_KEY = "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";
 const TOGETHER_API_KEY =
   "27b92a686e62fa3c74cb22729a1d0bc26e377cb64ac39d3694355f4c5a1b804f";
 
